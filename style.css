@@ -22,3 +22,227 @@
   /* =======font========= */
   --fontfam: "Kumbh Sans", sans-serif;
 }
+
+/* =========nav-bar========== */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 10vh;
+}
+.nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+}
+/* =======logo and toggle adjusting===== */
+.head-container {
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  gap: 20px;
+}
+.toggle-menu {
+  width: 20px;
+  cursor: pointer;
+}
+
+/* ========links container position absolute and translate -100 so they disapppear */
+
+.links-container {
+  display: block;
+  background-color: var(--White);
+  position: absolute;
+  top: 0;
+  min-height: 100vh;
+  width: 200px;
+  transform: translateX(-100%);
+  transition: 500ms ease-in-out;
+  z-index: 999;
+}
+/* ======js class============= */
+.open-menu {
+  transform: translateX(0%);
+}
+/* =========actual links adjustement === */
+.nav-links {
+  position: relative;
+  left: 55px;
+  top: 80px;
+  margin-top: 50px;
+}
+.link {
+  list-style-type: none;
+  margin-bottom: 20px;
+}
+.link a {
+  text-decoration: none;
+  text-transform: capitalize;
+  font-family: var(--fontfam);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--Veryvarkblue);
+}
+
+/* =========close btn ============ */
+#close-btn {
+  position: relative;
+  cursor: pointer;
+  top: 20px;
+  left: 15px;
+  font-size: 30px;
+  color: var(--Darkgrayishblue);
+}
+
+/* =======global-info flex and align center */
+.global-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  height: 10vh;
+  width: 200px;
+  margin-right: 20px;
+}
+/* ======profile pic size======= */
+.profile-picture {
+  width: 30px;
+  cursor: pointer;
+}
+/* ====== cart and number displayed above the cart */
+.cart {
+  position: absolute;
+  top: 30px;
+  cursor: pointer;
+}
+.cart:hover + .cart-info {
+  opacity: 1;
+}
+.items-in-cart {
+  position: relative;
+  cursor: pointer;
+  opacity: 0;
+  padding: 0px 5px;
+  left: 12px;
+  color: white;
+  bottom: 5px;
+  z-index: 999;
+  background-color: var(--Orange);
+  border-radius: 50%;
+}
+/* ======js class ============ */
+.show-item-cart-number {
+  opacity: 1;
+}
+
+/* =========cart box========== */
+.cart-info {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  width: 90vw;
+  transform: translateX(-70%);
+  margin-top: 30px;
+  min-height: 30vh;
+  border-radius: 10px;
+  transition: 200ms ease-in-out;
+
+  padding-bottom: 20px;
+
+  box-shadow: 0px 2px rgba(0, 0, 0, 0.1);
+}
+/* =======cart title and the line after it=== */
+.title {
+  width: 90%;
+  margin-top: 20px;
+  text-transform: capitalize;
+  font-family: var(--fontfam);
+  font-weight: 400;
+  color: var(--Veryvarkblue);
+  margin-bottom: 20px;
+}
+.title::after {
+  content: " ";
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  opacity: 0.5;
+  background-color: var(--Veryvarkblue);
+}
+/* ===========js class to open car list */
+.show-cart-info {
+  opacity: 1;
+}
+/* ========item and cart - info========= */
+.cart-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
+  width: 90%;
+  margin-bottom: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.item-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 6px;
+
+  cursor: pointer;
+  border-radius: 5px 0px 0px 5px;
+  transition: 200ms ease-in;
+}
+
+.item-info:hover {
+  background-color: var(--Orange);
+}
+/* ========text inside cart======== */
+.text {
+  font-family: var(--fontfam);
+  font-weight: 400;
+  width: 80%;
+  font-size: 20px;
+  color: var(--Darkgrayishblue);
+  text-transform: capitalize;
+}
+/* =======total price of item selected=== */
+.total {
+  font-weight: 700;
+  color: var(--Black);
+}
+/* =========item img========= */
+.item-img {
+  width: 50px;
+}
+/* ========checkout btn===== */
+.checkout-btn {
+  cursor: pointer;
+  font-family: var(--fontfam);
+  font-size: 20px;
+  font-weight: 700px;
+  background-color: var(--Orange);
+  color: white;
+  border: none;
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 200ms ease-in;
+}
+.checkout-btn:hover {
+  opacity: 0.5;
+}

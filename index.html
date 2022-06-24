@@ -4,10 +4,73 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/7b5c8c5ef7.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="style.css" />
     <title>E-commerce</title>
   </head>
   <body>
+    <!-- ==========nav bar============= -->
+    <nav class="nav-bar">
+      <div class="nav-center">
+        <!-- ============logo and toggle menu for mobile======== -->
+        <div class="head-container">
+       <img src="./images/icon-menu.svg" class="toggle-menu" alt="">
+     
+          <img src="./images/logo.svg" alt="" />
+        </div>
+        <div class="links-container">
+          <i class="fa-solid fa-xmark"  id = 'close-btn'></i> 
+        <div class="nav-links">
+          <!-------------close btn================ -->
+      
+          <!-- ===========links list============ -->
+          <ul>
+            <li class="link"><a href="#">collections</a></li>
+            <li class="link"><a href="#">men</a></li>
+            <li class="link"><a href="#">Women</a></li>
+            <li class="link"><a href="#">About</a></li>
+            <li class="link"><a href="#">contact</a></li>
+          </ul>
+        </div>
+      </div>
+        <!-- =============enf of links=============== -->
+        <div class="global-info">
+          <!-- ===========cart icon and container=========== -->
+          <div class="cart-container">
+            <p class="items-in-cart">2</p>
+          <img src="./images/icon-cart.svg" class="cart" alt="">
+          
+          <!-- ==========cart info we will redo it in js but for now harcoding it for styling purpose============ -->
+          <article class="cart-info">
+            <h3 class="title"> cart</h3>
+            <div class="cart-items">
+            
+            <div class="item-info">
+              <img src="./images/./image-product-1-thumbnail.jpg" class="item-img" alt="">
+              <div class="text">
+                <p class="item-name"> Fall limited  autumn Sneaker</p>
+                <p class="item-value">$123 * 3 <span class="total">$300</span></p>
+              </div>
+              <!-- ===========delete item ================= -->
+              <img src="./images/icon-delete.svg" alt="" class="delete-item">
+            </div>
+            </div>
+            <button class="checkout-btn">checkout</button>
+            
+         
+            </article>
+            <!-- ===========profile picture============ -->
+            
+        
+        
+        </div>
+        <img src="./images/image-avatar.png" class="profile-picture" alt="">
+      </div>
+    </nav>
+
     <script src="app.js"></script>
   </body>
 </html>
