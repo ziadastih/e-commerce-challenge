@@ -16,3 +16,4 @@ const cartChart = document.querySelector(".cart-info");
 cart.addEventListener("click", function () {
   cartChart.classList.toggle("show-cart-info");
 });
+// ============end of navigation click events===
