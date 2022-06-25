@@ -12,6 +12,7 @@
     <title>E-commerce</title>
   </head>
   <body>
+    
     <!-- ==========nav bar============= -->
     <nav class="nav-bar">
       <div class="nav-center">
@@ -20,22 +21,23 @@
        <img src="./images/icon-menu.svg" class="toggle-menu" alt="">
      
           <img src="./images/logo.svg" alt="" />
+          <div class="links-container">
+            <i class="fa-solid fa-xmark"  id = 'close-btn'></i> 
+          <div class="nav-links">
+            <!-------------close btn================ -->
+        
+            <!-- ===========links list============ -->
+            <ul>
+              <li class="link"><a href="#">collections</a></li>
+              <li class="link"><a href="#">men</a></li>
+              <li class="link"><a href="#">Women</a></li>
+              <li class="link"><a href="#">About</a></li>
+              <li class="link"><a href="#">contact</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="links-container">
-          <i class="fa-solid fa-xmark"  id = 'close-btn'></i> 
-        <div class="nav-links">
-          <!-------------close btn================ -->
-      
-          <!-- ===========links list============ -->
-          <ul>
-            <li class="link"><a href="#">collections</a></li>
-            <li class="link"><a href="#">men</a></li>
-            <li class="link"><a href="#">Women</a></li>
-            <li class="link"><a href="#">About</a></li>
-            <li class="link"><a href="#">contact</a></li>
-          </ul>
         </div>
-      </div>
+       
         <!-- =============enf of links=============== -->
         <div class="global-info">
           <!-- ===========cart icon and container=========== -->
@@ -70,6 +72,7 @@
         <img src="./images/image-avatar.png" class="profile-picture" alt="">
       </div>
     </nav>
+    <span class="line"></span>
 <!-- ===============end of navbar======================== -->
 
 <main class="main-container">
@@ -86,7 +89,10 @@
   </div>
   <!-- =========images album===== -->
   <div class="images-album">
-  
+  <img src="./images/image-product-1-thumbnail.jpg" alt="" >
+  <img src="./images/image-product-2-thumbnail.jpg" alt="">
+  <img src="./images/image-product-3-thumbnail.jpg" alt="">
+  <img src="./images/image-product-4-thumbnail.jpg" alt="">
   </div>
 </div>
 
@@ -94,10 +100,11 @@
   <h3>SNEAKER COMPANY</h3>
   <h1>fall limited edition sneakers</h1>
   <p>these low-profile sneakers are your perfect casual wear companion.featuring a dudrable rubber outer sole.they'll withstand everything the waether can offer.</p>
-</div>
+
 <div class="prices-info">
 <p class="main-price">$125.00 <span> 50%</span></p>
 <span class="old-price">$250.00</span>
+
 </div>
 <div class="btn-container">
   <div class="items-amount-counter">
@@ -105,9 +112,33 @@
     <span class="number">0</span>
     <img src="./images/icon-plus.svg" class="plus-btn" alt="">
   </div>
-  <button class="btn"><img src="./images/icon-cart.svg" alt=""> Add to cart</button>
+  <button class="add-item-btn"><i class="fa-solid fa-cart-shopping"></i> Add to cart</button>
 </div>
+</div>
+
 </main>
+<div class="modal">
+ 
+  <div class="modal-images-section">
+    <i class="fa-solid fa-xmark"   id = 'modal-close-btn'></i> 
+    <div class="modal-Image-container">
+     
+    <img src="./images/image-product-1.jpg" class="modal-main-img" alt="">
+    <!-- ==========switch btns======== -->
+    <div class="modal-switch-btns">
+    <img src="./images/icon-previous.svg" class="modal-prev-btn" alt="">
+    <img src="./images/icon-next.svg" class="modal-next-btn" alt="">
+   </div>
+    </div>
+    <!-- =========images album===== -->
+    <div class="modal-images-album">
+    <img src="./images/image-product-1-thumbnail.jpg" alt="">
+    <img src="./images/image-product-2-thumbnail.jpg" alt="">
+    <img src="./images/image-product-3-thumbnail.jpg" alt="">
+    <img src="./images/image-product-4-thumbnail.jpg" alt="">
+    </div>
+  </div>
+</div>
     <script src="app.js"></script>
   </body>
 </html>

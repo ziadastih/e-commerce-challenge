@@ -5,6 +5,7 @@ const closeBtn = document.getElementById("close-btn");
 
 toggleMenu.addEventListener("click", function () {
   navLinks.classList.add("open-menu");
+  cartChart.classList.remove("show-cart-info");
 });
 closeBtn.addEventListener("click", function () {
   navLinks.classList.remove("open-menu");
