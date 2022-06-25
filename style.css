@@ -58,7 +58,7 @@
   background-color: var(--White);
   position: absolute;
   top: 0;
-  min-height: 100vh;
+  min-height: 120vh;
   width: 200px;
   transform: translateX(-100%);
   transition: 500ms ease-in-out;
@@ -256,6 +256,7 @@
 }
 .main-img {
   width: 100vw;
+  cursor: pointer;
 }
 .images-album {
   display: none;
@@ -398,6 +399,18 @@
 
 .add-item-btn:hover {
   opacity: 0.5;
+}
+.section-line {
+  height: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  margin-bottom: 10px;
+  margin-left: 25%;
+  margin-top: 40px;
+  background-color: var(--Veryvarkblue);
+  opacity: 0.75;
 }
 /* ===========adjusting modal for all type of devices======= */
 .modal {
@@ -591,6 +604,7 @@
   }
   .main-img {
     max-width: 300px;
+    border-radius: 10px;
   }
   .images-album {
     display: flex;
@@ -735,6 +749,7 @@
   }
   .main-img {
     max-width: 400px;
+    border-radius: 10px;
   }
   .images-album {
     display: flex;
