@@ -53,6 +53,11 @@ const modal = document.querySelector(".modal");
 const closeModal = document.getElementById("modal-close-btn");
 const modalMainImg = document.querySelector(".modal-main-img");
 const modalAlbum = document.querySelector(".modal-images-album");
+
+const cartItems = document.querySelector(".cart-items");
+
+let myCart = [];
+
 // =======function to displayshop no matter how many item we have in it
 function displayShop() {
   let listItems = " ";
@@ -73,7 +78,7 @@ function displayShop() {
   </div>
   
   <div class="images-album">
-  <img src=${item.url0} class="mini-img" id = "0" alt="" >
+  <img src=${item.url0} class="mini-img selected " id = "0" alt="" >
   <img src=${item.url1} class= "mini-img" id = "1"alt="">
   <img src=${item.url2} class= "mini-img"  id = "2"alt="">
   <img src=${item.url3} class ="mini-img" id="3"  alt="">
@@ -114,6 +119,7 @@ function displayShop() {
     const nextBtn = container.querySelectorAll("#next-btn");
     const mainImg = container.querySelector(".main-img");
     const miniImg = container.querySelectorAll(".mini-img");
+    const counter = container.querySelectorAll(".items-amount-counter");
 
     // ========desktop selected img and switch main img
     miniImg.forEach(function (smallimg) {
@@ -136,7 +142,7 @@ function displayShop() {
         if (count < 0) {
           count = 3;
         }
-        console.log(count);
+
         let strcount = count.toString();
         let img = document.getElementById(strcount);
         mainImg.src = img.src;
@@ -151,10 +157,51 @@ function displayShop() {
         if (count > 3) {
           count = 0;
         }
-        console.log(count);
+
         let strcount = count.toString();
         let img = document.getElementById(strcount);
         mainImg.src = img.src;
+      });
+    });
+    //==========counter btn==============
+    counter.forEach(function (counter) {
+      const number = counter.querySelector(".number");
+      let amount = 0;
+      number.textContent = amount;
+      const minusBtn = counter.querySelector(".minus-btn");
+      const plusBtn = counter.querySelector(".plus-btn");
+      // ========plus btn=========
+      plusBtn.addEventListener("click", function () {
+        amount++;
+        number.textContent = amount;
+      });
+      // ==========minus btn ========
+      minusBtn.addEventListener("click", function () {
+        amount--;
+        if (amount < 0) {
+          amount = 0;
+        }
+        number.textContent = amount;
+      });
+      // =========add to cart btn and cart display  inside the counter so they cant add any item unless they actually select a number===========
+
+      const addToCartBtn = container.querySelectorAll(".add-item-btn");
+      const checkoutBtn = document.querySelector(".checkout-btn");
+      addToCartBtn.forEach(function (addBtn) {
+        addBtn.addEventListener("click", function () {
+          let itemAdded = items[container.dataset.id];
+          if (myCart.edition !== itemAdded.edition) {
+            myCart.push({
+              edition: itemAdded.edition,
+              oldprice: itemAdded.oldPrice,
+              discount: itemAdded.discount,
+              url: itemAdded.url0,
+              order: amount,
+            });
+            checkoutBtn.classList.add("add-checkout");
+          }
+          console.log(myCart);
+        });
       });
     });
 
@@ -177,7 +224,6 @@ function displayShop() {
     });
   });
 }
-
 // ======window display all shop item=======
 window.addEventListener("DOMContentLoaded", function () {
   displayShop();
@@ -191,3 +237,30 @@ window.addEventListener("scroll", function (e) {
     navLinks.classList.remove("open-menu");
   }
 });
+
+// let itemlist = " ";
+// for (let i = 0; i < myCart.length; i++) {
+//   // ======name shortcut====
+//   let shortcutName = myCart[i].edition
+//     .split(" ")
+//     .slice(0, 3)
+//     .join(" ");
+//   // =====main price calc=======
+//   let mainPrice =
+//     myCart[i].oldPrice -
+//     (myCart[i].oldPrice * myCart[i].discount) / 100;
+//   let currentNum = parseInt(number.textContent);
+
+//   itemlist += ` <div class="item-info">
+//     <img src=${myCart[i].url0} class="item-img" alt="">
+//     <div class="text">
+//       <p class="item-name">${shortcutName}...</p>
+//       <p class="item-value">${mainPrice} * ${
+//     number.textContent
+//   } <span class="total">$${mainPrice * amount}</span></p>
+//     </div>
+
+//     <img src="./images/icon-delete.svg" alt="" class="delete-item">
+//   </div>`;
+//   cartItems.innerHTML = itemlist;
+// }

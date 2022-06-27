@@ -224,6 +224,7 @@
 }
 /* ========checkout btn===== */
 .checkout-btn {
+  opacity: 0;
   cursor: pointer;
   font-family: var(--fontfam);
   font-size: 20px;
@@ -240,6 +241,7 @@
 .checkout-btn:hover {
   opacity: 0.5;
 }
+
 /* ==========end of nav-bar====== */
 
 /* ========main section========== */
@@ -826,4 +828,7 @@
 }
 .open-menu {
   transform: translateX(0%);
+}
+.add-checkout {
+  opacity: 1;
 }
