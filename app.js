@@ -49,7 +49,10 @@ const items = [
 ];
 
 const shop = document.querySelector(".shop");
-
+const modal = document.querySelector(".modal");
+const closeModal = document.getElementById("modal-close-btn");
+const modalMainImg = document.querySelector(".modal-main-img");
+const modalAlbum = document.querySelector(".modal-images-album");
 // =======function to displayshop no matter how many item we have in it
 function displayShop() {
   let listItems = " ";
@@ -57,23 +60,23 @@ function displayShop() {
     let item = items[i];
     let mainPrice = item.oldPrice - (item.oldPrice * item.discount) / 100;
 
-    listItems += `<section class="main-container" id=${item.id}>
+    listItems += `<section class="main-container" data-id=${item.id}>
   <div class="images-section">
-  <div class="main-Image-container">
+  <div class="main-Image-container" data-id=${item.id}>
    
   <img src=${item.url0} class="main-img" alt="">
   
   <div class="switch-btns">
-  <img src="./images/icon-previous.svg" class="previous-btn" id ="prev-btn"alt="">
+  <img src="./images/icon-previous.svg" class="previous-btn" id ="previous-btn"alt="">
   <img src="./images/icon-next.svg" class="next-btn" id="next-btn" alt="">
  </div>
   </div>
   
   <div class="images-album">
-  <img src=${item.url0} data-id = "0" alt="" >
-  <img src=${item.url1} data-id = "1"alt="">
-  <img src=${item.url2}  data-id = "2"alt="">
-  <img src=${item.url3} data-id="3"  alt="">
+  <img src=${item.url0} class="mini-img" id = "0" alt="" >
+  <img src=${item.url1} class= "mini-img" id = "1"alt="">
+  <img src=${item.url2} class= "mini-img"  id = "2"alt="">
+  <img src=${item.url3} class ="mini-img" id="3"  alt="">
   </div>
 </div>
 
@@ -101,7 +104,78 @@ function displayShop() {
 <span class="section-line"></span>`;
   }
   shop.innerHTML = listItems;
-  // ======auto main price clac======
+
+  // =========for each container same functions...============================
+  const mainContainer = document.querySelectorAll(".main-container");
+
+  mainContainer.forEach(function (container) {
+    let count = 0;
+    const pervBtn = container.querySelectorAll("#previous-btn");
+    const nextBtn = container.querySelectorAll("#next-btn");
+    const mainImg = container.querySelector(".main-img");
+    const miniImg = container.querySelectorAll(".mini-img");
+
+    // ========desktop selected img and switch main img
+    miniImg.forEach(function (smallimg) {
+      smallimg.addEventListener("click", function () {
+        mainImg.src = smallimg.src;
+        miniImg.forEach(function (item) {
+          if (item !== smallimg) {
+            item.classList.remove("selected");
+          }
+          smallimg.classList.add("selected");
+        });
+      });
+    });
+
+    // ===========prev btn for mobile =============
+
+    pervBtn.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        count--;
+        if (count < 0) {
+          count = 3;
+        }
+        console.log(count);
+        let strcount = count.toString();
+        let img = document.getElementById(strcount);
+        mainImg.src = img.src;
+      });
+    });
+
+    // ==========next Btn for mobile ===========
+    nextBtn.forEach(function (next) {
+      next.addEventListener("click", function () {
+        count++;
+
+        if (count > 3) {
+          count = 0;
+        }
+        console.log(count);
+        let strcount = count.toString();
+        let img = document.getElementById(strcount);
+        mainImg.src = img.src;
+      });
+    });
+
+    // ===========img select to open modal======
+    mainImg.addEventListener("click", function (e) {
+      let element = e.target.parentElement.dataset.id;
+      let albumItems = items[element];
+      modal.classList.add("open-modal");
+      modalAlbum.innerHTML = `<img src=${albumItems.url0}  alt="">
+<img src=${albumItems.url1} alt="">
+<img src=${albumItems.url2} alt="">
+<img  src=${albumItems.url3} alt="">`;
+      // =======close modal btn==========
+      closeModal.addEventListener("click", function () {
+        modal.classList.remove("open-modal");
+      });
+      // ======end of close btn======
+      // ======modal main img========
+      modalMainImg.src = mainImg.src;
+    });
+  });
 }
 
 // ======window display all shop item=======

@@ -117,7 +117,7 @@
   cursor: pointer;
 }
 .cart:hover + .cart-info {
-  opacity: 1;
+  display: flex;
 }
 .items-in-cart {
   position: relative;
@@ -135,8 +135,8 @@
 /* =========cart box========== */
 .cart-info {
   position: absolute;
-  opacity: 0;
-  display: flex;
+  opacity: 1;
+  display: none;
   align-items: center;
   justify-content: start;
   flex-direction: column;
@@ -177,14 +177,13 @@
   align-items: center;
   justify-content: space-between;
   color: var(--Darkgrayishblue);
-
   flex-direction: column;
   position: relative;
   width: 90%;
   margin-bottom: 15px;
   cursor: pointer;
   border-radius: 5px;
-  z-index: 999;
+  z-index: 2;
 }
 .item-info {
   display: flex;
@@ -234,6 +233,7 @@
   border: none;
   width: 80%;
   padding: 10px;
+  z-index: 999;
   border-radius: 10px;
   transition: 200ms ease-in;
 }
@@ -267,14 +267,17 @@
   width: 85vw;
   margin-left: 50px;
   margin-top: -220px;
+  z-index: 1;
   justify-content: space-between;
 }
 /* ===============previous btn */
 .previous-btn {
   cursor: pointer;
+
   background-color: var(--Lightgrayishblue);
   padding: 15px 20px;
   border-radius: 50%;
+  transition: 300ms ease-in;
 }
 /* ==========next-btn======= */
 .next-btn {
@@ -282,10 +285,15 @@
   background-color: var(--Lightgrayishblue);
   padding: 15px 20px;
   border-radius: 50%;
+  transition: 300ms ease-in;
 }
+
 .previous-btn:hover,
 .next-btn:hover {
   opacity: 0.6;
+}
+.hide-btn {
+  opacity: 0;
 }
 
 /* =========text container styling====== */
@@ -432,6 +440,7 @@
 /* ==========modal close btn====== */
 
 #modal-close-btn {
+  cursor: pointer;
   color: orange;
   display: flex;
   justify-content: flex-end;
@@ -809,7 +818,7 @@
   display: flex;
 }
 .show-cart-info {
-  opacity: 1;
+  display: flex;
 }
 
 .show-item-cart-number {
