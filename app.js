@@ -19,8 +19,7 @@ cart.addEventListener("click", function () {
 });
 // ============end of navigation click events===
 
-// ========creating array of object as proto of what data would be
-
+// =========ITEMS ARRAY =========================
 const items = [
   {
     id: 0,
@@ -33,10 +32,11 @@ const items = [
     url1: "./images/image-product-2.jpg",
     url2: "./images/image-product-3.jpg",
     url3: "./images/image-product-4.jpg",
+    order: "0",
   },
   {
     id: 1,
-    edition: `fall limited edition sneakers`,
+    edition: `Summer limited edition sneakers`,
     info: `these low-profile sneakers are your perfect casual wear companion.featuring a dudrable rubber outer sole.they'll withstand everything the waether can offer`,
 
     discount: 50,
@@ -45,20 +45,26 @@ const items = [
     url1: "./images/image-product-2.jpg",
     url2: "./images/image-product-3.jpg",
     url3: "./images/image-product-4.jpg",
+    order: "0",
   },
 ];
 
+// ================= VARIABLES=======================
 const shop = document.querySelector(".shop");
 const modal = document.querySelector(".modal");
 const closeModal = document.getElementById("modal-close-btn");
+const itemsInCartNum = document.querySelector(".items-in-cart");
 const modalMainImg = document.querySelector(".modal-main-img");
 const modalAlbum = document.querySelector(".modal-images-album");
-
+const modalPrevBtn = document.querySelector(".modal-prev-btn");
+const modalNextBtn = document.querySelector(".modal-next-btn");
 const cartItems = document.querySelector(".cart-items");
+const cartInfo = document.querySelector(".cart-info");
+const checkoutBtn = document.querySelector(".checkout-btn");
 
 let myCart = [];
 
-// =======function to displayshop no matter how many item we have in it
+// =======DISPLAY OUR DATA FROM ITEMS ARRAY ........ FUNCTION==========
 function displayShop() {
   let listItems = " ";
   for (let i = 0; i < items.length; i++) {
@@ -110,7 +116,7 @@ function displayShop() {
   }
   shop.innerHTML = listItems;
 
-  // =========for each container same functions...============================
+  // =========FOR EACH CONTAINER FUNCTION..============================
   const mainContainer = document.querySelectorAll(".main-container");
 
   mainContainer.forEach(function (container) {
@@ -163,6 +169,7 @@ function displayShop() {
         mainImg.src = img.src;
       });
     });
+    // =================COUNTER FUNCTION==============
     //==========counter btn==============
     counter.forEach(function (counter) {
       const number = counter.querySelector(".number");
@@ -183,44 +190,80 @@ function displayShop() {
         }
         number.textContent = amount;
       });
+
+      // =======ADD ITEM TO CART FUNCTION====================
       // =========add to cart btn and cart display  inside the counter so they cant add any item unless they actually select a number===========
 
       const addToCartBtn = container.querySelectorAll(".add-item-btn");
-      const checkoutBtn = document.querySelector(".checkout-btn");
+
       addToCartBtn.forEach(function (addBtn) {
         addBtn.addEventListener("click", function () {
-          let itemAdded = items[container.dataset.id];
-          if (myCart.edition !== itemAdded.edition) {
-            myCart.push({
-              edition: itemAdded.edition,
-              oldprice: itemAdded.oldPrice,
-              discount: itemAdded.discount,
-              url: itemAdded.url0,
-              order: amount,
-            });
-            checkoutBtn.classList.add("add-checkout");
+          let id = container.dataset.id;
+          let itemAdded = items[id];
+          // ========adding items to array===
+          if (!myCart.includes(itemAdded) && amount > 0) {
+            itemAdded.order = amount;
+            myCart.push(itemAdded);
+            localStorage.setItem("myCart", JSON.stringify(myCart));
           }
-          console.log(myCart);
+          addItemToCart(myCart);
         });
       });
     });
 
+    // ==========MODAL FUNCTIONS==============================
     // ===========img select to open modal======
     mainImg.addEventListener("click", function (e) {
       let element = e.target.parentElement.dataset.id;
       let albumItems = items[element];
       modal.classList.add("open-modal");
-      modalAlbum.innerHTML = `<img src=${albumItems.url0}  alt="">
-<img src=${albumItems.url1} alt="">
-<img src=${albumItems.url2} alt="">
-<img  src=${albumItems.url3} alt="">`;
+      modalAlbum.innerHTML = `<img src=${albumItems.url0} class="modal-mini-img"  alt="" id="0">
+<img src=${albumItems.url1} class="modal-mini-img" id="1" alt="">
+<img src=${albumItems.url2}  class = "modal-mini-img" id="2"alt="">
+<img  src=${albumItems.url3}  class= "modal-mini-img" id"3"alt="">`;
       // =======close modal btn==========
       closeModal.addEventListener("click", function () {
         modal.classList.remove("open-modal");
       });
-      // ======end of close btn======
       // ======modal main img========
       modalMainImg.src = mainImg.src;
+      const modalMiniImg = document.querySelectorAll(".modal-mini-img");
+      modalMiniImg.forEach(function (smallimg) {
+        smallimg.addEventListener("click", function () {
+          modalMainImg.src = smallimg.src;
+          modalMiniImg.forEach(function (item) {
+            if (item !== smallimg) {
+              item.classList.remove("selected");
+            }
+            smallimg.classList.add("selected");
+          });
+        });
+      });
+      // ========modal prev btn========================
+      modalPrevBtn.addEventListener("click", function () {
+        count--;
+        if (count < 0) {
+          count = 3;
+        }
+
+        let strcount = count.toString();
+        let img = document.getElementById(strcount);
+        modalMainImg.src = img.src;
+      });
+
+      // ==========modal next Btn for mobile ===========
+
+      modalNextBtn.addEventListener("click", function () {
+        count++;
+
+        if (count > 3) {
+          count = 0;
+        }
+
+        let strcount = count.toString();
+        let img = document.getElementById(strcount);
+        modalMainImg.src = img.src;
+      });
     });
   });
 }
@@ -238,29 +281,76 @@ window.addEventListener("scroll", function (e) {
   }
 });
 
-// let itemlist = " ";
-// for (let i = 0; i < myCart.length; i++) {
-//   // ======name shortcut====
-//   let shortcutName = myCart[i].edition
-//     .split(" ")
-//     .slice(0, 3)
-//     .join(" ");
-//   // =====main price calc=======
-//   let mainPrice =
-//     myCart[i].oldPrice -
-//     (myCart[i].oldPrice * myCart[i].discount) / 100;
-//   let currentNum = parseInt(number.textContent);
+// ==========add items to cart function==========
 
-//   itemlist += ` <div class="item-info">
-//     <img src=${myCart[i].url0} class="item-img" alt="">
-//     <div class="text">
-//       <p class="item-name">${shortcutName}...</p>
-//       <p class="item-value">${mainPrice} * ${
-//     number.textContent
-//   } <span class="total">$${mainPrice * amount}</span></p>
-//     </div>
+function addItemToCart(Arr) {
+  // ======show the checkout btn=====
+  checkoutBtn.classList.add("add-checkout");
+  // ===empty item====
+  let itemlist = " ";
+  // ====add the cart num also check if my cart array is empty i want to remove all and put a message instead
+  itemsInCartNum.classList.add("show-item-cart-number");
+  itemsInCartNum.textContent = myCart.length;
+  if (myCart.length === 0) {
+    cartItems.innerHTML = itemsInCartNum.classList.remove(
+      "show-item-cart-number"
+    );
+    cartChart.classList.remove("show-cart-info");
+    checkoutBtn.classList.remove("add-checkout");
+  }
+  // ====if array is empty put a message if not the for loop over it and display items
+  if (Arr.length === 0) {
+    cartItems.innerHTML = `<p>Your cart is empty </p>`;
+  } else {
+    for (let i = 0; i < Arr.length; i++) {
+      // ======name shortcut====
+      let shortcutName = Arr[i].edition.split(" ").slice(0, 3).join(" ");
+      // =====main price calc=======
+      let mainPrice =
+        Arr[i].oldPrice - (Arr[i].oldPrice * Arr[i].discount) / 100;
 
-//     <img src="./images/icon-delete.svg" alt="" class="delete-item">
-//   </div>`;
-//   cartItems.innerHTML = itemlist;
-// }
+      itemlist += ` <div class="item-info" >
+    <img src=${Arr[i].url0} class="item-img" alt="">
+    <div class="text">
+      <p class="item-name">${shortcutName}...</p>
+      <p class="item-value">${mainPrice} * ${
+        Arr[i].order
+      } <span class="total">$${mainPrice * Arr[i].order}
+    </span></p>
+    </div >
+
+    <img src="./images/icon-delete.svg" alt="" class="delete-item" id =${i}>
+  </div>`;
+    }
+    cartItems.innerHTML = itemlist;
+
+    // =======delete btn search for the element id that we gave then turn it into number then ask to splice this item from array
+    const deleteItem = document.querySelectorAll(".delete-item");
+    deleteItem.forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        let element = e.target.id;
+
+        function removeItem(myCart) {
+          const elementNumber = parseInt(element);
+          if (elementNumber !== -1) {
+            myCart.splice(elementNumber, 1);
+            console.log(myCart);
+            return myCart;
+          }
+        }
+        // ===call the remove function then add the new array to the local storage then call the original function to display what left in array
+        removeItem(myCart);
+        localStorage.setItem("myCart", JSON.stringify(myCart));
+        addItemToCart(myCart);
+      });
+    });
+  }
+}
+
+// =======local storage for the cart items when refresh we want to get our item from local storage from previous session================
+const itemFromLocalS = JSON.parse(localStorage.getItem("myCart"));
+if (itemFromLocalS) {
+  myCart = itemFromLocalS;
+
+  addItemToCart(myCart);
+}
